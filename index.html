@@ -8,6 +8,20 @@
 </head>
 <body>
 
+  <!-- SVG clipPath hati: pakai objectBoundingBox supaya bentuk hati
+       otomatis menyesuaikan ukuran kotak foto di layar berapa pun
+       (ini yang memperbaiki foto yang kepotong/gepeng di HP) -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <clipPath id="heartClip" clipPathUnits="objectBoundingBox">
+        <path d="M0.5,1 C0.0625,0.6667 0,0.3333 0.1667,0.1429
+                 C0.2917,0 0.4583,0.0476 0.5,0.2381
+                 C0.5417,0.0476 0.7083,0 0.8333,0.1429
+                 C1,0.3333 0.9375,0.6667 0.5,1 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+
   <!-- Kelopak & hati yang beterbangan (dibuat otomatis lewat JS, selalu tampil di semua layar) -->
   <div class="floating-layer" id="floatingLayer"></div>
 

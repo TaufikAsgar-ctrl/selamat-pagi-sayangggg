@@ -30,12 +30,14 @@ html,body{
 
 body{
   min-height:100vh;
+  min-height:100dvh;
   background:
     radial-gradient(circle at 20% 10%, rgba(255,255,255,0.25), transparent 40%),
     linear-gradient(160deg, var(--sunset-4) 0%, var(--sunset-3) 35%, var(--sunset-2) 65%, var(--sunset-1) 100%);
   background-attachment:fixed;
   position:relative;
   padding-bottom:40px;
+  width:100%;
 }
 
 /* Ganti dengan foto latar sendiri: taruh file di assets/images/background.jpg
@@ -48,6 +50,7 @@ body{
   position:relative;
   z-index:5;
   min-height:100vh;
+  min-height:100dvh;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -258,13 +261,18 @@ body{
   justify-content:center;
   gap:26px;
   flex-wrap:wrap;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
 }
+.nav-links::-webkit-scrollbar{display:none;}
 .nav-links a{
   text-decoration:none;
   color:var(--text-dark);
   font-size:15px;
   font-weight:500;
   transition:color .2s;
+  white-space:nowrap;
 }
 .nav-links a:hover,.nav-links a.active{color:var(--pink-4);}
 .nav-heart{
@@ -362,12 +370,20 @@ body{
 
 /* Photo Section */
 .photo-section{position:relative;}
+
+/* ----- Foto berbentuk hati -----
+   PENTING: bentuk hati sekarang pakai clip-path:url(#heartClip)
+   yang didefinisikan sebagai SVG <clipPath clipPathUnits="objectBoundingBox">
+   di index.html. Ini membuat bentuk hati otomatis menyesuaikan
+   ukuran kotak foto di layar berapa pun (dulu pakai path() dengan
+   koordinat piksel tetap, sehingga di HP yang kotaknya kecil,
+   bentuk hati jadi gepeng dan foto kelihatan terpotong). */
 .heart-frame{
   position:relative;
   width:100%;
   aspect-ratio:1/0.95;
-  clip-path:path('M250,430 C40,290 10,150 90,70 C150,10 230,30 250,110 C270,30 350,10 410,70 C490,150 460,290 250,430 Z');
-  -webkit-clip-path:path('M250,430 C40,290 10,150 90,70 C150,10 230,30 250,110 C270,30 350,10 410,70 C490,150 460,290 250,430 Z');
+  clip-path:url(#heartClip);
+  -webkit-clip-path:url(#heartClip);
   overflow:hidden;
   margin:0 auto;
   max-width:520px;
@@ -641,8 +657,8 @@ body{
 @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 
 .music-info{flex:1;min-width:0;}
-.music-title{font-weight:700;font-size:15px;}
-.music-artist{font-size:12px;color:var(--text-soft);margin-bottom:6px;}
+.music-title{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.music-artist{font-size:12px;color:var(--text-soft);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .progress-wrap{width:100%;}
 #progressBar{
   width:100%;
@@ -706,10 +722,11 @@ body{
   cursor:pointer;
   box-shadow:var(--shadow-soft);
   transition:transform .2s;
+  width:100%;
 }
 .secret-btn:hover{transform:translateY(-3px);}
 .secret-icon{font-size:26px;}
-.secret-text{display:flex;flex-direction:column;text-align:left;flex:1;}
+.secret-text{display:flex;flex-direction:column;text-align:left;flex:1;min-width:0;}
 .secret-text strong{font-size:15px;}
 .secret-text small{font-size:12px;opacity:.85;}
 .secret-arrow{font-size:18px;}
@@ -721,6 +738,7 @@ body{
   font-family:'Brush Script MT', cursive;
   font-size:16px;
   margin-top:26px;
+  padding:0 20px;
   position:relative;
   z-index:5;
 }
@@ -735,6 +753,7 @@ body{
   z-index:100;
   opacity:0;
   transition:opacity .3s;
+  padding:20px;
 }
 .modal-overlay.show{display:flex;opacity:1;}
 .modal-box{
@@ -743,6 +762,8 @@ body{
   padding:40px 34px;
   max-width:420px;
   width:90%;
+  max-height:85vh;
+  overflow-y:auto;
   text-align:center;
   position:relative;
   box-shadow:0 20px 60px rgba(0,0,0,0.3);
@@ -751,22 +772,165 @@ body{
 }
 .modal-overlay.show .modal-box{transform:scale(1);}
 .modal-box h2{color:var(--pink-4);margin-bottom:16px;}
-.modal-box p{color:var(--text-dark);line-height:1.7;font-size:15px;}
+.modal-box p{color:var(--text-dark);line-height:1.7;font-size:15px;white-space:pre-line;}
 .modal-close{
   position:absolute;top:14px;right:18px;
   border:none;background:none;
   font-size:24px;cursor:pointer;color:var(--text-soft);
 }
 
-/* ===================== RESPONSIVE ===================== */
+/* ===================== RESPONSIVE - TABLET (<=900px) ===================== */
 @media (max-width:900px){
-  .hero{grid-template-columns:1fr;margin-top:220px;}
+  .navbar{
+    max-width:94%;
+    gap:10px;
+    padding:10px 14px;
+  }
+  .hero{
+    grid-template-columns:1fr;
+    margin:210px auto 30px;
+    gap:28px;
+  }
+  .weather-widget{
+    top:88px;
+    left:50%;
+    transform:translateX(-50%);
+  }
   .bottom-bar{grid-template-columns:1fr;}
   .nav-links{gap:14px;font-size:13px;}
-  .weather-widget{top:150px;}
-  .flower{font-size:44px;}
-  .flower-popup{max-width:180px;}
+  .flower{font-size:48px;}
+  .flower-popup{max-width:190px;}
+  .bouquet-flowers{gap:26px 24px;}
 }
+
+/* ===================== RESPONSIVE - PHONE (<=600px) ===================== */
+@media (max-width:600px){
+  body{padding-bottom:24px;}
+
+  /* Navbar: keep icons small, let links scroll horizontally if needed */
+  .navbar{
+    margin:14px auto 0;
+    max-width:calc(100% - 20px);
+    gap:8px;
+    padding:9px 12px;
+    border-radius:30px;
+  }
+  .nav-home,.nav-heart{
+    width:34px;height:34px;
+    font-size:15px;
+  }
+  .nav-links{
+    gap:12px;
+    font-size:12.5px;
+    justify-content:flex-start;
+    mask-image:linear-gradient(to right, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+  }
+
+  /* Weather widget: smaller, sits right under navbar, no overlap */
+  .weather-widget{
+    top:66px;
+    padding:10px 16px;
+    gap:8px;
+    border-radius:14px;
+  }
+  .weather-icon{font-size:20px;}
+  .time{font-size:16px;}
+  .date{font-size:11px;}
+
+  /* Hero: give enough room below the stacked navbar + weather widget */
+  .hero{
+    margin:150px auto 24px;
+    padding:0 16px;
+    gap:22px;
+  }
+
+  .message-card{
+    padding:30px 22px;
+    border-radius:20px;
+  }
+  .greeting{font-size:34px;}
+  .greeting.highlight{font-size:38px;}
+  .heart-outline{font-size:30px;}
+  .typing-line{font-size:15px;}
+  .body-text{font-size:14.5px;line-height:1.65;}
+  .love-text{font-size:14.5px;}
+
+  /* Heart-frame: sedikit lebih kecil dan margin bawah cukup
+     supaya thanks-box (yang punya margin negatif) tidak menutupi
+     foto secara berlebihan di layar sempit */
+  .heart-frame{max-width:300px;}
+
+  .thanks-box{
+    margin-top:-14px;
+    padding:22px 18px 66px;
+    max-width:100%;
+  }
+  .thanks-box h3{font-size:22px;}
+  .thanks-box p{font-size:13.5px;}
+
+  /* Bouquet */
+  .bouquet-section{padding:32px 16px 28px;margin:12px auto 40px;}
+  .bouquet-title{font-size:28px;}
+  .bouquet-hint{font-size:13px;margin-bottom:26px;}
+  .bouquet-card{padding:34px 18px 28px;}
+  .bouquet-flowers{gap:22px 20px;}
+  .flower{font-size:42px;}
+  .flower.picked::after{
+    width:15px;height:15px;font-size:10px;bottom:-13px;
+  }
+  .bouquet-ribbon{font-size:16px;gap:8px;margin-top:24px;}
+  .flower-popup{max-width:160px;font-size:12px;padding:12px 14px;}
+
+  /* Bottom bar / footer */
+  .bottom-bar{padding:0 16px;gap:14px;}
+  .music-player{padding:14px 16px;gap:12px;border-radius:20px;}
+  .vinyl{width:48px;height:48px;}
+  .vinyl-hole{width:15px;height:15px;}
+  .music-title{font-size:13.5px;}
+  .music-artist{font-size:11px;}
+  .music-heart{top:12px;right:14px;font-size:14px;}
+
+  .timer-box{padding:14px 12px;border-radius:20px;}
+  .timer-label{font-size:12px;margin-bottom:6px;}
+  .timer-unit span{font-size:17px;}
+  .timer-unit small{font-size:9.5px;}
+
+  .secret-btn{padding:14px 16px;gap:10px;border-radius:20px;}
+  .secret-icon{font-size:20px;}
+  .secret-text strong{font-size:13.5px;}
+  .secret-text small{font-size:11px;}
+  .secret-arrow{font-size:15px;}
+
+  .footer-quote{font-size:13.5px;margin-top:18px;}
+
+  /* Pin screen */
+  .lock-card{padding:32px 20px;border-radius:22px;}
+  .lock-icon{font-size:32px;}
+  .lock-card h2{font-size:20px;}
+  .pin-boxes{gap:6px;}
+  .pin-box{width:34px;height:44px;font-size:18px;border-radius:10px;}
+
+  /* Gift screen */
+  .gift-box,.gift-body{width:110px;height:110px;}
+  .gift-body{font-size:66px;}
+  .gift-card h2{font-size:21px;}
+
+  /* Modal */
+  .modal-box{padding:30px 22px;border-radius:20px;}
+}
+
+/* ===================== RESPONSIVE - SMALL PHONE (<=380px) ===================== */
+@media (max-width:380px){
+  .nav-links{gap:9px;font-size:11.5px;}
+  .greeting{font-size:29px;}
+  .greeting.highlight{font-size:32px;}
+  .pin-box{width:29px;height:40px;font-size:16px;}
+  .pin-boxes{gap:5px;}
+  .timer-unit span{font-size:15px;}
+  .flower{font-size:36px;}
+  .heart-frame{max-width:260px;}
+}
+
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important;transition:none !important;}
 }
