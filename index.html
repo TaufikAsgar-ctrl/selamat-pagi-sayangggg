@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Pagi, Sayang ♥</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Kelopak & hati yang beterbangan (dibuat otomatis lewat JS, selalu tampil di semua layar) -->
+  <div class="floating-layer" id="floatingLayer"></div>
+
+  <!-- ===================== FRAGMENT 1: LAYAR PIN ===================== -->
+  <div class="fragment-screen" id="pinScreen">
+    <div class="lock-card">
+      <div class="lock-icon">🔒</div>
+      <h2>Masukkan PIN</h2>
+      <p class="lock-hint">Cuma kita berdua yang tau angkanya ♥</p>
+
+      <div class="pin-boxes" id="pinBoxes">
+        <input type="tel" maxlength="1" class="pin-box" data-index="0">
+        <input type="tel" maxlength="1" class="pin-box" data-index="1">
+        <input type="tel" maxlength="1" class="pin-box" data-index="2">
+        <input type="tel" maxlength="1" class="pin-box" data-index="3">
+        <input type="tel" maxlength="1" class="pin-box" data-index="4">
+        <input type="tel" maxlength="1" class="pin-box" data-index="5">
+      </div>
+
+      <p class="pin-error" id="pinError">PIN salah, coba lagi ya~</p>
+      <button class="pin-submit" id="pinSubmit">Buka 💕</button>
+    </div>
+  </div>
+
+  <!-- ===================== FRAGMENT 2: LAYAR KOTAK HADIAH ===================== -->
+  <div class="fragment-screen hidden" id="giftScreen">
+    <div class="gift-card">
+      <h2>Ada kejutan untukmu!</h2>
+      <p class="gift-hint">Klik kotaknya ya ♥</p>
+
+      <div class="gift-box" id="giftBox">
+        <div class="gift-lid"></div>
+        <div class="gift-body">🎁</div>
+        <div class="gift-sparkle s1">✦</div>
+        <div class="gift-sparkle s2">✧</div>
+        <div class="gift-sparkle s3">✦</div>
+      </div>
+
+      <p class="gift-caption" id="giftCaption">klik di sini</p>
+    </div>
+  </div>
+
+  <!-- ===================== FRAGMENT 3: WEBSITE UTAMA ===================== -->
+  <div class="fragment-screen hidden" id="mainSite">
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-home">🏠</div>
+    <nav class="nav-links">
+      <a href="#beranda" class="active">Beranda</a>
+      <a href="#pesan">Pesan</a>
+      <a href="#buket">Buket</a>
+      <a href="#galeri">Galeri</a>
+      <a href="#kenangan">Kenangan</a>
+      <a href="#tentang">Tentang Kita</a>
+    </nav>
+    <div class="nav-heart">♥</div>
+  </header>
+
+  <!-- WIDGET WAKTU -->
+  <div class="weather-widget">
+    <div class="weather-icon">☀️</div>
+    <div class="weather-text">
+      <div class="time" id="clock">07:30 AM</div>
+      <div class="date" id="dateDisplay">Selasa, 21 Juli 2025</div>
+    </div>
+  </div>
+
+  <!-- KONTEN UTAMA -->
+  <main class="hero" id="beranda">
+
+    <!-- Kartu pesan pagi -->
+    <section class="message-card">
+      <h1 class="greeting">Selamat Pagi,</h1>
+      <h1 class="greeting highlight">Sayang <span class="heart-outline">♡</span></h1>
+
+      <p class="typing-line"><span id="typingText"></span><span class="cursor">|</span></p>
+
+      <p class="body-text">
+        Jangan lupa sarapan, jaga kesehatan,
+        dan tetap semangat menjalani aktivitas hari ini.
+        Aku selalu mendoakan yang terbaik untukmu.
+      </p>
+
+      <p class="love-text">I love you today, tomorrow, and forever. ❤️</p>
+    </section>
+
+    <!-- Foto berbentuk hati + kotak terima kasih -->
+    <section class="photo-section" id="galeri">
+      <div class="heart-frame">
+        <img src="assets/images/couple.jpg" alt="Foto Kita" id="mainPhoto"
+             onerror="this.onerror=null;this.src='assets/images/placeholder.svg';">
+      </div>
+
+      <div class="thanks-box" id="tentang">
+        <h3>Terima kasih ~♥</h3>
+        <p>sudah menjadi bagian terindah dalam hidupku. Aku bersyukur memiliki kamu. 🥰</p>
+        <div class="envelope" id="envelopeBtn" title="Klik amplopnya!">
+          <div class="envelope-body">
+            <div class="envelope-flap"></div>
+            <div class="envelope-letter">♥</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== BUKET BUNGA DIGITAL ===================== -->
+  <!-- GANTI DI SINI: teks di data-message tiap bunga bisa kamu ubah bebas -->
+  <section class="bouquet-section" id="buket">
+    <h2 class="bouquet-title">Buket Bunga Untukmu 💐</h2>
+    <p class="bouquet-hint">Klik setiap bunga, setiap tangkai punya pesan sendiri ♥</p>
+
+    <div class="bouquet-card">
+      <div class="bouquet-flowers" id="bouquetFlowers">
+        <span class="flower" data-message="Kamu adalah alasan aku selalu tersenyum setiap hari.">🌷</span>
+        <span class="flower" data-message="Terima kasih sudah selalu sabar menghadapiku.">🌹</span>
+        <span class="flower" data-message="Aku bersyukur punya kamu di hidupku.">🌻</span>
+        <span class="flower" data-message="Semoga kita selalu bersama, sampai kapanpun.">🌼</span>
+        <span class="flower" data-message="Kamu itu spesial, jangan pernah lupa itu ya.">🌺</span>
+        <span class="flower" data-message="Aku sayang kamu, hari ini dan seterusnya.">💐</span>
+        <span class="flower" data-message="Terima kasih sudah jadi tempat pulang ternyaman.">🥀</span>
+        <span class="flower" data-message="Setiap detik bareng kamu itu berharga buatku.">🌸</span>
+      </div>
+      <div class="bouquet-ribbon">🎀 <span>Dirangkai khusus untukmu</span> 🎀</div>
+    </div>
+  </section>
+
+  <!-- FOOTER / BOTTOM BAR -->
+  <footer class="bottom-bar" id="kenangan">
+
+    <!-- Music Player -->
+    <div class="music-player">
+      <div class="vinyl" id="vinyl">
+        <div class="vinyl-hole"></div>
+      </div>
+      <div class="music-info">
+        <div class="music-title" id="musicTitle">You Are The Reason</div>
+        <div class="music-artist" id="musicArtist">Calum Scott</div>
+        <div class="progress-wrap">
+          <input type="range" id="progressBar" value="0" min="0" max="100" step="0.1">
+        </div>
+        <div class="music-controls">
+          <span id="currentTime">00:00</span>
+          <div class="control-buttons">
+            <button id="prevBtn">⏮</button>
+            <button id="playBtn">▶</button>
+            <button id="nextBtn">⏭</button>
+          </div>
+          <span id="durationTime">00:00</span>
+        </div>
+      </div>
+      <div class="music-heart">♥</div>
+    </div>
+
+    <!-- Pesan "Pesan" section anchor -->
+    <div id="pesan" style="display:none"></div>
+
+    <!-- Timer bersama -->
+    <div class="timer-box">
+      <p class="timer-label">Sudah bersama selama</p>
+      <div class="timer-values">
+        <div class="timer-unit"><span id="days">000</span><small>Hari</small></div>
+        <div class="timer-unit"><span id="hours">00</span><small>Jam</small></div>
+        <div class="timer-unit"><span id="minutes">00</span><small>Menit</small></div>
+        <div class="timer-unit"><span id="seconds">00</span><small>Detik</small></div>
+      </div>
+    </div>
+
+    <!-- Tombol Pesan Rahasia -->
+    <button class="secret-btn" id="secretBtn">
+      <span class="secret-icon">♥</span>
+      <span class="secret-text">
+        <strong>Buka Pesan Rahasia</strong>
+        <small>klik di sini</small>
+      </span>
+      <span class="secret-arrow">→</span>
+    </button>
+  </footer>
+
+  <p class="footer-quote">✦ Terima kasih telah hadir dan menjadi alasan aku tersenyum setiap hari ♡ ✦</p>
+
+  <!-- MODAL PESAN RAHASIA -->
+  <div class="modal-overlay" id="secretModal">
+    <div class="modal-box">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <h2>Pesan Rahasia 💌</h2>
+      <p id="secretMessage">
+        Tulis pesan rahasiamu di sini... Ganti teks ini di file js/script.js
+        pada bagian SECRET_MESSAGE ya!
+      </p>
+    </div>
+  </div>
+
+  <!-- Audio Player (ganti sumbernya di assets/music) -->
+  <audio id="audioPlayer" src="assets/music/song.mp3" preload="metadata" loop></audio>
+
+  </div> <!-- /#mainSite (Fragment 3) -->
+
+  <script src="js/script.js"></script>
+</body>
+</html>

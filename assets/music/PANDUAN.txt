@@ -1,0 +1,2 @@
+Taruh file musik format .mp3 di sini dengan nama "song.mp3"
+Contoh: assets/music/song.mp3
