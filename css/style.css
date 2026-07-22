@@ -244,6 +244,7 @@ body{
   border-radius:50px;
   padding:12px 20px;
   box-shadow:var(--shadow-soft);
+  flex-wrap:nowrap;
 }
 .nav-home{
   width:42px;height:42px;
@@ -260,10 +261,11 @@ body{
   display:flex;
   justify-content:center;
   gap:26px;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
+  min-width:0;
 }
 .nav-links::-webkit-scrollbar{display:none;}
 .nav-links a{
@@ -285,12 +287,16 @@ body{
   flex-shrink:0;
 }
 
-/* ===================== WEATHER WIDGET ===================== */
+/* ===================== WEATHER WIDGET =====================
+   Sekarang elemen biasa (bukan position:absolute) yang mengalir
+   tepat di bawah navbar. Ini memperbaiki bug widget jam yang dulu
+   suka overlap/miring saat navbar berubah tinggi (mis. saat menu
+   wrap ke 2 baris di layar sempit). */
 .weather-widget{
-  position:absolute;
-  top:100px;
-  left:24px;
+  position:relative;
   z-index:5;
+  width:fit-content;
+  margin:16px auto 0;
   display:flex;
   align-items:center;
   gap:12px;
@@ -310,7 +316,7 @@ body{
   position:relative;
   z-index:5;
   max-width:1300px;
-  margin:170px auto 40px;
+  margin:40px auto 40px;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:36px;
@@ -788,13 +794,8 @@ body{
   }
   .hero{
     grid-template-columns:1fr;
-    margin:210px auto 30px;
+    margin:30px auto 30px;
     gap:28px;
-  }
-  .weather-widget{
-    top:88px;
-    left:50%;
-    transform:translateX(-50%);
   }
   .bottom-bar{grid-template-columns:1fr;}
   .nav-links{gap:14px;font-size:13px;}
@@ -828,7 +829,7 @@ body{
 
   /* Weather widget: smaller, sits right under navbar, no overlap */
   .weather-widget{
-    top:66px;
+    margin:12px auto 0;
     padding:10px 16px;
     gap:8px;
     border-radius:14px;
@@ -837,9 +838,9 @@ body{
   .time{font-size:16px;}
   .date{font-size:11px;}
 
-  /* Hero: give enough room below the stacked navbar + weather widget */
+  /* Hero */
   .hero{
-    margin:150px auto 24px;
+    margin:22px auto 24px;
     padding:0 16px;
     gap:22px;
   }
@@ -861,7 +862,7 @@ body{
   .heart-frame{max-width:300px;}
 
   .thanks-box{
-    margin-top:-14px;
+    margin-top:12px;
     padding:22px 18px 66px;
     max-width:100%;
   }
